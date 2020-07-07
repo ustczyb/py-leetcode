@@ -36,7 +36,21 @@
 
 from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
+
+
 class Solution:
     def grayCode(self, n: int) -> List[int]:
-
+        if n == 0:
+            return [0]
+        if n == 1:
+            return [0, 1]
+        res = self.grayCode(n - 1)
+        l = len(res)
+        for num in res[::-1]:
+            res.append(l + num)
+        return res
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == '__main__':
+    print(Solution().grayCode(3))
