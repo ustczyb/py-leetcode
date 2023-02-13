@@ -45,6 +45,8 @@
 #  
 #  Related Topics 链表 
 #  👍 150 👎 0
+from typing import List
+
 
 class ListNode:
     def __init__(self, val=0, next=None):
@@ -58,4 +60,35 @@ class ListNode:
 #         self.next = next
 class Solution:
     def splitListToParts(self, head: ListNode, k: int) -> List[ListNode]:
+        # get total length
+        length = 0
+        p = head
+        while p:
+            length += 1
+            p = p.next
+        left = length % k
+        quotient = int(length / k)
+        res = []
+        new_head = ListNode()
+        new_head.next=head
+        p = new_head
+        for i in range(left):
+            res.append(p.next)
+            for j in range(quotient + 1):
+                if j == 0:
+                    q = p
+                    p = p.next
+                    q.next = None
+                else:
+                    p = p.next
+        for i in range(left, k):
+            res.append(p.next)
+            for j in range(quotient):
+                if j == 0:
+                    q = p
+                    p = p.next
+                    q.next = None
+                else:
+                    p = p.next
+        return res
 # leetcode submit region end(Prohibit modification and deletion)
